@@ -1,6 +1,10 @@
 import asyncHandler from "express-async-handler";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import User from "../models/userModel.js";
+import dotenv from "dotenv";
+
+dotenv.config();
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
@@ -65,15 +69,18 @@ const loginUser = asyncHandler(async (req, res) => {
 // @route   /api/users/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
-  const user = {
-    id: req.user._id,
-    email: req.user.email,
-    name: req.user.name,
-  };
-  res.status(200).json(user);
+  console.log(req.user);
+  if (req.user) {
+    res.status(200).json({
+      id: req.user._id,
+      email: req.user.email,
+      name: req.user.name,
+    });
+  } else {
+    res.status(401).json({ message: "Not authorized" });
+  }
 });
 
-// Generate token
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d",
