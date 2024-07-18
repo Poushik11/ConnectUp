@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
-
+import logo from "../assests/logo2.png";
 function Header() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -17,7 +17,9 @@ function Header() {
   return (
     <header className="header">
       <div className="logo">
-        <Link to="/">Support Desk</Link>
+        <Link to="/">
+          <img className="clogo" src={logo} alt="logo" srcset="" />
+        </Link>
       </div>
       <ul>
         {user ? (
