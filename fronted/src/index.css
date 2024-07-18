@@ -404,3 +404,12 @@ footer {
     font-size: 1.5rem;
   }
 }
+.logo img {
+  height: 30%;
+  width: 30%;
+}
+.logo {
+  text-align: left;
+  margin-left: none;
+  display: inline-block;
+}
