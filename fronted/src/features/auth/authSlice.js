@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk, createAction } from "@reduxjs/toolkit";
 import authService from "./authService";
 import { extractErrorMessage } from "../../utils";
+import axios from "axios";
 
 const user = JSON.parse(localStorage.getItem("user"));
-
+const API_URL = "/api/users/";
 const initialState = {
   user: user ? user : null,
   isLoading: false,
@@ -20,6 +21,24 @@ export const register = createAsyncThunk(
     }
   }
 );
+export const getMe = createAsyncThunk("auth/getMe", async (_, thunkAPI) => {
+  try {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user && user.token) {
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
+      };
+      const response = await axios.get(API_URL + "me", config);
+      return response.data;
+    } else {
+      return thunkAPI.rejectWithValue("User not authenticated");
+    }
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error.response.data.message);
+  }
+});
 
 export const login = createAsyncThunk("auth/login", async (user, thunkAPI) => {
   try {
