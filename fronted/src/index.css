@@ -213,7 +213,7 @@ h3 {
 .ticket,
 .ticket-headings {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 20px;
   justify-content: space-between;
   align-items: center;
@@ -414,4 +414,12 @@ footer {
   text-align: left;
   margin-left: none;
   display: inline-block;
+}
+.date_on {
+  background-color: #ccfcef93;
+  padding: 10px 2px;
+}
+.created_by {
+  color: #828282;
+  text-decoration: none;
 }

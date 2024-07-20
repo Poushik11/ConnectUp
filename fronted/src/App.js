@@ -8,8 +8,8 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import NewTicket from "./pages/NewTickets";
-// import Tickets from "./pages/Tickets";
-// import Ticket from "./pages/Ticket";
+import Tickets from "./pages/Tickets";
+import Ticket from "./pages/Ticket";
 
 // NOTE: Here we have removed the nested routing as the path is the same
 
@@ -33,7 +33,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            {/*
+
             <Route
               path="/tickets"
               element={
@@ -42,6 +42,7 @@ function App() {
                 </PrivateRoute>
               }
             />
+
             <Route
               path="/ticket/:ticketId"
               element={
@@ -49,7 +50,7 @@ function App() {
                   <Ticket />
                 </PrivateRoute>
               }
-            /> */}
+            />
           </Routes>
         </div>
       </Router>
