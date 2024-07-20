@@ -17,10 +17,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 import userRoutes from "./routes/userRoutes.js";
-// import ticketRoutes from "./routes/ticketRoutes";
+import ticketRoutes from "./routes/ticketRoutes.js";
 
 app.use("/api/users", userRoutes);
-// app.use("/api/tickets", ticketRoutes);
+app.use("/api/tickets", ticketRoutes);
 
 // // Serve Frontend
 // if (process.env.NODE_ENV === "production") {
