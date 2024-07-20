@@ -2,13 +2,12 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
-// import PrivateRoute from "./components/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
-
-// import NewTicket from "./pages/NewTicket";
+import NewTicket from "./pages/NewTickets";
 // import Tickets from "./pages/Tickets";
 // import Ticket from "./pages/Ticket";
 
@@ -25,14 +24,16 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
-            {/* <Route
-              path="/new-ticket"
+
+            <Route
+              path="/New-ticket"
               element={
                 <PrivateRoute>
                   <NewTicket />
                 </PrivateRoute>
               }
             />
+            {/*
             <Route
               path="/tickets"
               element={
