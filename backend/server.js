@@ -1,5 +1,6 @@
 // import path from "path";
 import express from "express";
+import cors from "cors";
 import "colors";
 
 import { config } from "dotenv";
@@ -12,6 +13,7 @@ const PORT = process.env.PORT || 5000;
 connectDB();
 
 const app = express();
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
