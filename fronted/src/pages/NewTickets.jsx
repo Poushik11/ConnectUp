@@ -86,13 +86,13 @@ function NewTickets() {
               value={product}
               onChange={(e) => setProduct(e.target.value)}
             >
-              <option value="iPhone">Oncampus</option>
-              <option value="Macbook Pro">Offcampus</option>
-              <option value="iMac">PrePlacment-talk</option>
-              <option value="iPad">Meeting</option>
-              <option value="iPad">Meet Up</option>
-              <option value="iPad">Presentation</option>
-              <option value="iPad">Task</option>
+              <option value="OnCampus">Oncampus</option>
+              <option value="OffCampus">Offcampus</option>
+              <option value="PrePlacment-Talk">PrePlacment-talk</option>
+              <option value="Meeting">Meeting</option>
+              <option value="Meet-Up">Meet Up</option>
+              <option value="Presentation">Presentation</option>
+              <option value="Task">Task</option>
             </select>
           </div>
           <div className="form-group">

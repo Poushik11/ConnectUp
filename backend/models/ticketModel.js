@@ -20,7 +20,7 @@ const ticketSchema = mongoose.Schema(
       type: String,
       required: [true, "Please select a Ticket"],
       enum: [
-        "Oncampus",
+        "OnCampus",
         "OffCampus",
         "PrePlacment-Talk",
         "Task",

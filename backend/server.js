@@ -18,9 +18,11 @@ app.use(express.urlencoded({ extended: false }));
 
 import userRoutes from "./routes/userRoutes.js";
 import ticketRoutes from "./routes/ticketRoutes.js";
+import noteRoutes from "./routes/noteRoutes.js";
 
 app.use("/api/users", userRoutes);
 app.use("/api/tickets", ticketRoutes);
+app.use("/api/tickets/:ticketId/notes", noteRoutes);
 
 // // Serve Frontend
 // if (process.env.NODE_ENV === "production") {
