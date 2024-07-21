@@ -260,6 +260,7 @@ h3 {
 .ticket-page {
   position: relative;
   text-align: left;
+  padding-bottom: 100px;
 }
 
 .ticket-page h2 {
@@ -270,7 +271,11 @@ h3 {
 
 .ticket-page .btn {
   margin-bottom: 30px;
+  /* padding-bottom: 200px; */
 }
+/* .ticket-page .btn .btn-block .btn-danger {
+  padding-bottom: 2300px;
+} */
 
 .ticket-page .btn-block {
   width: 100%;
