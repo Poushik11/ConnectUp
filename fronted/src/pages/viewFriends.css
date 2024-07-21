@@ -1,0 +1,74 @@
+.view-friends-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 800px;
+  height: 600px;
+  margin: 20px auto;
+  /* border: 1px solid #ccc; */
+  border-radius: 10px;
+  /* background-color: #f9f9f9; */
+  /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+  overflow: hidden; /* Ensure the content overflows inside */
+}
+.friend-avatar {
+  width: 40px; /* Fixed size for the avatar */
+  height: 40px;
+  border-radius: 50%;
+  margin-left: 10px;
+}
+.view-friends-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.friend-list {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  overflow-y: auto; /* Enable vertical scroll */
+  flex-grow: 1; /* Ensure the list grows and shrinks */
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+.friend-item:last-child {
+  border-bottom: none;
+}
+
+.friend-info {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.friend-serial {
+  width: 30px; /* Fixed width for the serial number */
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+}
+
+.friend-username {
+  flex: 1;
+  font-size: 16px;
+  margin-left: 10px;
+  align-items: flex-start;
+}
+
+.friend-email {
+  font-size: 14px;
+  color: #666;
+}
+
+.toast-container {
+  margin-top: 20px;
+}

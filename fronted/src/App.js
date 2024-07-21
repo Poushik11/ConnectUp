@@ -10,6 +10,8 @@ import Profile from "./pages/Profile";
 import NewTicket from "./pages/NewTickets";
 import Tickets from "./pages/Tickets";
 import Ticket from "./pages/Ticket";
+import AddFriend from "./pages/AddFriend";
+import ViewFriends from "./pages/viewFriends";
 
 // NOTE: Here we have removed the nested routing as the path is the same
 
@@ -24,6 +26,8 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/add-friend" element={<AddFriend />} />
+            <Route path="/view-friends" element={<ViewFriends />} />
 
             <Route
               path="/New-ticket"

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+// import AddFriend from "./AddFriend";
 import { FaQuestionCircle, FaTicketAlt } from "react-icons/fa";
 
 function Home() {
@@ -15,6 +16,12 @@ function Home() {
 
       <Link to="/tickets" className="btn btn-block">
         <FaTicketAlt /> View My Tickets
+      </Link>
+      <Link to="/add-friend" className="btn btn-block">
+        <FaTicketAlt /> Add-Friends
+      </Link>
+      <Link to="/view-friends" className="btn btn-block">
+        <FaTicketAlt /> view Friends
       </Link>
     </>
   );
