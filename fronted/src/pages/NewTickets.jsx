@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import { createTicket } from "../features/tickets/ticketSlice";
 import BackButton from "../components/BackButton";
+import "react-toastify/dist/ReactToastify.css";
+import "./newFriends.css"; // Create this CSS file for styling
+
+axios.defaults.baseURL = "http://localhost:5000";
 
 function NewTickets() {
   const { user } = useSelector((state) => state.auth);
@@ -18,24 +23,68 @@ function NewTickets() {
     return today.toISOString().split("T")[0];
   });
   const [description, setDescription] = useState("");
+  const [friends, setFriends] = useState([]);
+  const [selectedFriends, setSelectedFriends] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const token = user?.token;
+
+  useEffect(() => {
+    const fetchFriends = async () => {
+      try {
+        const response = await axios.get("/api/users/friends", {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        setFriends(response.data);
+      } catch (error) {
+        console.error("Error fetching friends", error);
+        toast.error("Error fetching friends");
+      }
+    };
+
+    fetchFriends();
+  }, [token]);
+
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log(company, task, product, date, description);
-    dispatch(createTicket({ company, task, product, description, date }))
+
+    dispatch(
+      createTicket({
+        company,
+        task,
+        product,
+        description,
+        date,
+        friends: selectedFriends,
+      })
+    )
       .unwrap()
       .then(() => {
-        // We got a good response so navigate the user
-        navigate("/tickets");
         toast.success("New ticket created!");
+        navigate("/tickets");
       })
-      .catch(toast.error);
+      .catch((error) => {
+        const errorMessage =
+          error?.response?.data?.message || "Something went wrong!";
+        toast.error(errorMessage);
+      });
   };
+
   const handleDateChange = (event) => {
-    setDate(event.target.value); // Update state with the date in 'YYYY-MM-DD' format
+    setDate(event.target.value);
+  };
+
+  const handleFriendChange = (event) => {
+    const { value, checked } = event.target;
+    setSelectedFriends((prevSelectedFriends) =>
+      checked
+        ? [...prevSelectedFriends, value]
+        : prevSelectedFriends.filter((friend) => friend !== value)
+    );
   };
 
   return (
@@ -45,44 +94,49 @@ function NewTickets() {
         <h1>Create New Ticket</h1>
         <p>Please fill out the form below</p>
       </section>
-
       <section className="form">
-        <div className="form-group">
-          <label htmlFor="name">Customer Name</label>
-          <input type="text" className="form-control" value={name} disabled />
-        </div>
-        <div className="form-group">
-          <label htmlFor="email">Customer Email</label>
-          <input type="text" className="form-control" value={email} disabled />
-        </div>
-        <div className="form-group">
-          <label htmlFor="description">Company Name</label>
-          <input
-            name="description"
-            id="description"
-            className="form-control"
-            placeholder="Company"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-          ></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="task">Task</label>
-          <input
-            name="task"
-            id="task"
-            className="form-control"
-            placeholder="Task"
-            value={task}
-            onChange={(e) => setTask(e.target.value)}
-          ></input>
-        </div>
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label htmlFor="product">Field </label>
+            <label htmlFor="name">Customer Name</label>
+            <input type="text" className="form-control" value={name} disabled />
+          </div>
+          <div className="form-group">
+            <label htmlFor="email">Customer Email</label>
+            <input
+              type="text"
+              className="form-control"
+              value={email}
+              disabled
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="company">Company Name</label>
+            <input
+              name="company"
+              id="company"
+              className="form-control"
+              placeholder="Company"
+              value={company}
+              onChange={(e) => setCompany(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="task">Task</label>
+            <input
+              name="task"
+              id="task"
+              className="form-control"
+              placeholder="Task"
+              value={task}
+              onChange={(e) => setTask(e.target.value)}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="product">Field</label>
             <select
               name="product"
               id="product"
+              className="form-control"
               value={product}
               onChange={(e) => setProduct(e.target.value)}
             >
@@ -104,7 +158,7 @@ function NewTickets() {
               placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+            />
           </div>
           <div className="form-group">
             <label htmlFor="date">Date</label>
@@ -115,13 +169,38 @@ function NewTickets() {
               className="form-control"
               value={date}
               onChange={handleDateChange}
-            ></input>
+            />
+          </div>
+          <label htmlFor="friends">Add Friends (Optional)</label>
+          <div className="form-control friends-group">
+            <div className="friends-list">
+              {friends.length > 0 ? (
+                friends.map((friend) => (
+                  <div key={friend._id} className="friend-item">
+                    <input
+                      type="checkbox"
+                      id={friend._id}
+                      value={friend._id}
+                      onChange={handleFriendChange}
+                    />
+                    <label htmlFor={friend._id}>
+                      {friend.name} ({friend.email})
+                    </label>
+                  </div>
+                ))
+              ) : (
+                <p>No friends available. Please add some friends.</p>
+              )}
+            </div>
           </div>
           <div className="form-group">
-            <button className="btn btn-block">Submit</button>
+            <button className="btn btn-block" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       </section>
+      <ToastContainer />
     </>
   );
 }

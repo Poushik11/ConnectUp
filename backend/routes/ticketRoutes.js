@@ -5,6 +5,8 @@ import {
   getTickets,
   getTicket,
   createTicket,
+  createCollaborativeTicket,
+  getUserTickets,
   deleteTicket,
   updateTicket,
 } from "../controllers/ticketController.js";
@@ -15,7 +17,8 @@ import protect from "../middleware/authMiddleware.js";
 // router.use("/:ticketId/notes", noteRouter);
 
 router.route("/").get(protect, getTickets).post(protect, createTicket);
-
+// router.post("/collaborative", protect, createCollaborativeTicket);
+router.get("/myTickets", protect, getUserTickets);
 router
   .route("/:id")
   .get(protect, getTicket)

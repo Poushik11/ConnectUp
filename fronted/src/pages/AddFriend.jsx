@@ -21,12 +21,12 @@ const AddFriend = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        // Ensure the response data is in the correct format
+
         if (Array.isArray(response.data)) {
           setAddedFriends(response.data.map((friend) => friend._id));
         }
       } catch (error) {
-        console.error("Error fetching friends", error);
+        // console.error("Error fetching friends", error);
         toast.error("Error fetching friends");
       }
     };
@@ -35,7 +35,7 @@ const AddFriend = () => {
   }, [token]);
 
   const handleSearch = async (query) => {
-    setSearchQuery(query); // Update the search query state
+    setSearchQuery(query);
     try {
       const response = await axios.get(
         `/api/users/searchUsers?query=${query}`,

@@ -1,0 +1,66 @@
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.friends-group {
+  max-height: 150px;
+  overflow-y: auto;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 4px;
+  /* background-color: #f9f9f9; */
+  box-sizing: border-box;
+}
+
+.friends-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friend-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.friend-item input {
+  margin-right: 10px;
+}
+
+.friend-item label {
+  flex: 1;
+}
+
+.heading {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.toast-container {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+}
+
+select.form-control {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: white;
+}
