@@ -1,6 +1,7 @@
 import asyncHandler from "express-async-handler";
 
 import Ticket from "../models/ticketModel.js";
+import CollaborativeTicket from "../models/collaborativeticket.js";
 
 // @desc    Get user tickets
 // @route   GET /api/tickets
@@ -74,6 +75,35 @@ const deleteTicket = asyncHandler(async (req, res) => {
 
   res.status(200).json({ success: true });
 });
+const createCollaborativeTicket = asyncHandler(async (req, res) => {
+  const { ticketId, userIds } = req.body;
+
+  // Check if the ticket exists
+  const ticket = await Ticket.findById(ticketId);
+  if (!ticket) {
+    res.status(404);
+    throw new Error("Ticket not found");
+  }
+
+  // Create the collaborative ticket
+  const collaborativeTicket = await CollaborativeTicket.create({
+    ticketId,
+    userIds,
+  });
+
+  res.status(201).json(collaborativeTicket);
+});
+
+// Get tickets for a user
+const getUserTickets = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+
+  const tickets = await CollaborativeTicket.find({ userIds: userId }).populate(
+    "ticketId"
+  );
+
+  res.status(200).json(tickets.map((collabTicket) => collabTicket.ticketId));
+});
 
 // @desc    Update ticket
 // @route   PUT /api/tickets/:id
@@ -100,4 +130,12 @@ const updateTicket = asyncHandler(async (req, res) => {
   res.status(200).json(updatedTicket);
 });
 
-export { getTickets, getTicket, createTicket, deleteTicket, updateTicket };
+export {
+  getTickets,
+  getTicket,
+  getUserTickets,
+  createCollaborativeTicket,
+  createTicket,
+  deleteTicket,
+  updateTicket,
+};
